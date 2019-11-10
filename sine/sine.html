@@ -1,0 +1,119 @@
+<!-- SINE WAVE ANIMATION, Copyright (c) 2005, Programmer: Eka Dharma Pranoto, S.Kom., Aff.WM., 
+If you like this program example, you may want to hire me in Android, Java, PHP using Laravel, or Delphi Projects.
+
+If you like this work, please contact me at whatsapp: +62812-2620-8581.
+-->
+<html><head><title>SINE WAVE ANIMATION USING JAVASCRIPT</title></head>
+
+<body bgcolor="d8f9ff">
+<script language="javascript">
+/* This is written in Indonesian language. 
+
+But in comment, I will use English to explain things for you.
+
+Everyone in the world, in any country, can learn from this example.
+
+What purpose will you get from learning from this example? You will 
+understand that a simple example how to use Document Object Model (DOM), 
+and also you can understand that using just DOM you can even create
+a simple animation.
+*/
+
+
+/* --- DEFINING STRING VARIABLE ---
+It is just a string that would be animated.
+
+As alternative, you can use "prompt" to ask user for their own string.
+*/
+kal= "A Github Animation Example For Those Who Just Learn Javascript";
+
+//Splitting string to characters
+kal= kal.split("");
+
+/* --- SPLITTING CHARACTER TO ITS OWN HTML TAG ---
+Using Document Object Model, here all characters of string 
+is splitted to have their own Html Tag.
+
+Why every character should have its own tag? So they can have their own id,
+and also they can have their own position.
+
+After that, we will use DOM to get them by Id, and changing their position, 
+when animation is working.
+*/
+for (x=0; x<kal.length; x++) {
+  this.document.write('<span id="'+ x +'" style="position:absolute; left:0;' +
+                      'top: 200; font-size:16px; color: rgb(222,55,37);">' + kal[x] + '</span>');
+}
+
+/* --- DEFINING CONSTANT VARIABLES ---
++ "tambah" is how much distance in animation.
++ "derajat" is degree in math.
++ posX is initialization horizontal position.
+*/
+tambah= 10;
+derajat= 3.1459 / 180; //1 pi radian = 180 derajat
+amplitudo= 200; //amplitudo awal
+posX= 0;  
+sinus(0);
+
+
+/* --- THE SINE ANIMATION FUNCTION ---
+function sinus(alfa) is the method responsible for making sine animation.
+
+The process is simple:
+
++ First by the time move, it move horizontal position by 5.
+  for example if a character was in posX = 0, now it would be it posX = 0 + 5 = 5,
+  hence next they will be in = 5 + 5 = 10, and later in = 10 + 5 = 15.
+
++ Second, by the posX (horizontal position) is moving, we are calculating the vertical 
+  position (posY) using this formula:
+  
+  posY= Math.round(Math.sin(alfa*derajat)*amplitudo)  
+  
+  this formula is just simply a sine formula.
+  
++ Third, you must now that the degree is in 0 - 360.
+  so after you reach degree = 360, it will start again at 
+  degree = 0. That was what it meant in:
+
+  if (alfa > 360) { alfa= 0; }
+  
++ Fourth, now you have had the calculation to get X and Y position. 
+  So ho would you apply the animation? 
+
+  Simply using Document Object Model to get the position of each characters,
+  using formula: 
+
+  point= document.getElementById(x);
+
+  Then all you need to do is just to apply the position X (horizontal) 
+  to left property, and position Y (vertical) to top property. 
+
+And voilaa.. you got a beautiful sine animation.  
+*/
+function sinus(alfa) {
+  posX= posX + 5;
+  if (posX > (document.body.clientWidth-16)) { posX= 0; }
+  alfa= alfa+tambah;  
+  if (alfa > 360) { alfa= 0; }
+  if (alfa == 0) { amplitudo= 75 + (Math.random() * 125); } //ubah besar amplitudo secara random tiap 1 siklus sekali
+  
+  //geser bagian belakang karakter ikuti bagian karakter paling depan
+  for (x=0; x<=kal.length-2; x++) { 
+    point= document.getElementById(x);
+    point_next= document.getElementById(x+1);
+    point.style.top= parseInt(point_next.style.top);
+    point.style.left= parseInt(point_next.style.left);
+  }
+  
+  posY= Math.round(Math.sin(alfa*derajat)*amplitudo);
+  point= document.getElementById(kal.length-1);
+  point.style.left= posX;
+  point.style.top= 200 - posY;
+
+  my_alfa= alfa;
+  setTimeout("sinus(my_alfa)", 100);
+}//end function  
+</script>
+</body></html>
