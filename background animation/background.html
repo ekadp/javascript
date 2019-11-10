@@ -1,5 +1,44 @@
 <html><head></head>
-<body bgcolor="d8f9ff">
+<body bgcolor="#d8f9ff">
 <script type="text/javascript">
+mycount = 0;
+
+function changeBackground() {
+	mycount++;
+	
+	mycolor = "#ffffff";
+	switch(mycount) {
+		case 0:
+		    mycolor = "#d8f9ff";
+			break;
+			
+		case 1:
+		    mycolor = "#d5feef";
+		    break;
+			
+		case 2:
+		    mycolor = "#ecfbc5";
+		    break;
+			
+		case 3:
+		    mycolor = "#fbe3c5";
+		    break;
+			
+		case 4:
+		    mycolor = "#fbc5cd";
+		    break;
+
+		case 5:
+		    mycolor = "#d4c5fb";
+			mycount = -1;
+		    break;		
+	}//switch
+	
+	document.body.style.backgroundColor = mycolor;
+	
+	setTimeout("changeBackground()", 200);
+}//function
+
+changeBackground();
 </script>
 </body></html>
