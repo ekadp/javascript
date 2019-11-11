@@ -2,7 +2,23 @@
 
 <script type="text/javascript">
 function checkForm() {
+	anyError = false;
 
+	element = document.getElementById("inputname");
+	if (element.value.trim() == "") {
+	   alert('You must input "Name" First');
+	   anyError = true;
+	}
+	
+	element = document.getElementById("inputage");
+	if (element.value.trim() == "") {
+	   alert('You must input "Age" First');
+	   anyError = true;
+	}
+	
+	if (anyError == false) {
+	   alert('Good! No Problem!');
+	}
 }//function-check-form
 </script>
 
